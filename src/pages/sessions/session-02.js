@@ -195,7 +195,7 @@ export default function Session02() {
 return $book`}
           />
           <p>
-            Running this query in BaseX returns the three <code><book></code> elements.
+            Running this query in BaseX returns the three <code>{'<book>'}</code> elements.
             This is a practical demonstration of how a parser + query engine can extract data from XML.
           </p>
 
@@ -209,12 +209,12 @@ return $book`}
 
           <h3>6.1 Why Namespaces Are Needed</h3>
           <p>
-            Imagine one vocabulary uses <code><table></code> for a furniture table and another uses
-            <code><table></code> for an HTML table. Without namespaces the names would clash.
+            Imagine one vocabulary uses <code>{'<table>'}</code> for a furniture table and another uses
+            <code>{'<table>'}</code> for an HTML table. Without namespaces the names would clash.
           </p>
 
           <h3>6.2 Declaring a Namespace</h3>
-          <p>A namespace namespace declaration looks like this:</p>
+          <p>A typical namespace declaration looks like this:</p>
           <CodeBlock
             language="xml"
             code={`<?xml version="1.0"?>
@@ -285,7 +285,7 @@ return $book`}
             <li>Download and install BaseX from the official site.</li>
             <li>Create a new database.</li>
             <li>Add the <code>books.xml</code> example shown above.</li>
-            <li>Run the simple XQuery that returns all <code><book></code> nodes.</li>
+            <li>Run the simple XQuery that returns all <code>{'<book>'}</code> nodes.</li>
           </ol>
 
           <h3>Exercise 2 – Draw a DOM Tree</h3>
