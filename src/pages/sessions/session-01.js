@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import CustomLayout from '@site/src/components/Layout/Layout';
+import CodeBlock from '@site/src/components/CodeBlock';
 
 export default function Session01() {
   return (
@@ -18,17 +19,6 @@ export default function Session01() {
               border-radius: 4px;
               font-family: Consolas, Monaco, monospace;
               font-size: 0.9em;
-            }
-            pre {
-              background-color: #1e1e1e;
-              color: #d4d4d4;
-              padding: 12px 16px;
-              border-radius: 6px;
-              font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-              font-size: 0.9rem;
-              overflow-x: auto;
-              line-height: 1.5;
-              margin: 12px 0 24px 0;
             }
           `}</style>
 
@@ -97,7 +87,9 @@ export default function Session01() {
           </ul>
 
           <h3>3.2 Example XML Document</h3>
-          <pre>{`<?xml version="1.0" encoding="iso-8859-1"?>
+          <CodeBlock
+            language="xml"
+            code={`<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE Music_Library [
   <!ELEMENT Music_Library (Title, Artist, Country, Price, Year)>
   <!ELEMENT Title (#PCDATA)>
@@ -113,7 +105,8 @@ export default function Session01() {
   <Country>Germany</Country>
   <Price>$12</Price>
   <Year>2002</Year>
-</Music_Library>`}</pre>
+</Music_Library>`}
+          />
 
           <p>
             The XML parser reads the prolog first to understand the document’s version, encoding,
@@ -138,13 +131,16 @@ export default function Session01() {
 
           <h3>5.1 Elements</h3>
           <p>Elements are the building blocks of XML. They consist of a start tag, content, and an end tag.</p>
-          <pre>{`<Title>YLU</Title>`}</pre>
+          <CodeBlock language="xml" code={`<Title>YLU</Title>`} />
 
           <h3>5.2 Attributes</h3>
           <p>Attributes provide additional information about an element.</p>
-          <pre>{`<book id="101" category="fiction">
+          <CodeBlock
+            language="xml"
+            code={`<book id="101" category="fiction">
   <title>The Great Adventure</title>
-</book>`}</pre>
+</book>`}
+          />
           <p>Rules for attributes:</p>
           <ul>
             <li>Must be quoted (single or double quotes)</li>
@@ -154,7 +150,7 @@ export default function Session01() {
 
           <h3>5.3 Comments</h3>
           <p>Comments in XML look like this:</p>
-          <pre>{`<!-- This is a comment. It is ignored by the parser. -->`}</pre>
+          <CodeBlock language="xml" code={`<!-- This is a comment. It is ignored by the parser. -->`} />
           <p>Comments cannot appear inside tags and cannot contain the sequence <code>--</code>.</p>
 
           <h3>5.4 XML as a Tree</h3>
@@ -201,18 +197,24 @@ export default function Session01() {
 
           <h3>7.2 External DTD Example</h3>
           <p>In the XML file:</p>
-          <pre>{`<?xml version="1.0"?>
+          <CodeBlock
+            language="xml"
+            code={`<?xml version="1.0"?>
 <!DOCTYPE Music_Library SYSTEM "music.dtd">
 <Music_Library>
   ...
-</Music_Library>`}</pre>
+</Music_Library>`}
+          />
           <p>In <code>music.dtd</code>:</p>
-          <pre>{`<!ELEMENT Music_Library (Title, Artist, Country, Price, Year)>
+          <CodeBlock
+            language="xml"
+            code={`<!ELEMENT Music_Library (Title, Artist, Country, Price, Year)>
 <!ELEMENT Title (#PCDATA)>
 <!ELEMENT Artist (#PCDATA)>
 <!ELEMENT Country (#PCDATA)>
 <!ELEMENT Price (#PCDATA)>
-<!ELEMENT Year (#PCDATA)>`}</pre>
+<!ELEMENT Year (#PCDATA)>`}
+          />
 
           <h3>7.3 Common DTD Declarations</h3>
           <ul>
