@@ -8,8 +8,6 @@ This course takes students from the fundamentals of XML and well-formed document
 
 ## About This Course
 
-- Built with **React** + **Docusaurus**
-- Hosted on **GitHub Pages**
 - Content is based on the official book
 - Every session ends with:
   1. **Summary**
