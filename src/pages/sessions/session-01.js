@@ -148,7 +148,7 @@ export default function Session01() {
           <p>Rules for attributes:</p>
           <ul>
             <li>Must be quoted (single or double quotes)</li>
-            <li>Cannot contain unescaped <code><</code>, <code>&</code>, or quotes of the same type</li>
+            <li>Cannot contain unescaped <code>{'<'}</code>, <code>{'&'}</code>, or quotes of the same type</li>
             <li>An element can have multiple attributes</li>
           </ul>
 
@@ -216,7 +216,7 @@ export default function Session01() {
 
           <h3>7.3 Common DTD Declarations</h3>
           <ul>
-            <li><code><!ELEMENT element-name (content-model)></code></li>
+            <li><code>{'<!ELEMENT element-name (content-model)>'}</code></li>
             <li><code>#PCDATA</code> — parsed character data</li>
             <li><code>EMPTY</code> — empty element</li>
             <li><code>ANY</code> — any content</li>
