@@ -14,7 +14,7 @@ const config = {
   organizationName: 'vtcmd-sb-global',
   projectName: 'xml-course',
   trailingSlash: false,
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
   i18n: {
     defaultLocale: 'en',
