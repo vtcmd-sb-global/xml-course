@@ -176,7 +176,7 @@ export default function Session03() {
           <ul>
             <li><code>book[1]</code> – the first book</li>
             <li><code>book[last()]</code> – the last book</li>
-            <li><code>book[price > 10]</code> – books whose price is greater than 10</li>
+            <li><code>{'book[price > 10]'}</code> – books whose price is greater than 10</li>
             <li><code>book[@id='B01']</code> – the book that has the attribute id equal to B01</li>
           </ul>
 
@@ -189,10 +189,10 @@ export default function Session03() {
           <ul>
             <li><code>=</code> equal to</li>
             <li><code>!=</code> not equal to</li>
-            <li><code><</code> less than</li>
-            <li><code><=</code> less than or equal to</li>
-            <li><code>></code> greater than</li>
-            <li><code>>=</code> greater than or equal to</li>
+            <li><code>{'<'}</code> less than</li>
+            <li><code>{'<='}</code> less than or equal to</li>
+            <li><code>{'>'}</code> greater than</li>
+            <li><code>{'>='}</code> greater than or equal to</li>
           </ul>
 
           <h3>8.2 Logical Operators</h3>
