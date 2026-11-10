@@ -59,8 +59,8 @@ export default function XMLDataQuerySyntax() {
           <h1>XML Data Query Syntax</h1>
 
           <p>
-            This page covers common XQuery / BaseX patterns for reading data from files or
-            databases and for inserting XML documents into a database, followed by a
+            This page covers the essential XQuery / BaseX patterns for reading data from files
+            or databases and for inserting XML documents into a database. It also includes a
             <strong>complete reference</strong> of the most important BaseX Database Module
             (<code>db:</code>) functions used for XML data work.
           </p>
@@ -68,69 +68,126 @@ export default function XMLDataQuerySyntax() {
           <hr />
 
           <h2>1. Query from a file on disk</h2>
+
           <p>
-            Use <code>doc()</code> when the XML file is not yet stored in a database.
+            When an XML file is still on the file system and has <strong>not</strong> been stored
+            in a BaseX database, use the standard XQuery function <code>doc()</code>.
+          </p>
+
+          <p>
+            <code>doc()</code> opens a single XML document from a file path or URI and returns
+            a document node. You can then apply any XPath / XQuery path expression on it.
           </p>
 
           <CodeBlock
             language="xquery"
-            code={`(: Verify the file contents manually :)
+            code={`(: Basic usage — absolute path (Windows example) :)
 doc("C:/Users/student/Documents/books.xml")/library/book[@id='B02']/price`}
           />
 
           <CodeBlock
             language="xquery"
-            code={`(: Get from document file — use when file data is not saved in a database :)
+            code={`(: Relative or forward-slash path (recommended) :)
 doc("path/to/library.xml")/library/book[@id='B02']/price`}
           />
+
+          <CodeBlock
+            language="xquery"
+            code={`(: Return the whole document :)
+doc("books.xml")
+
+(: Return all book titles :)
+doc("books.xml")//book/title
+
+(: Filter by attribute and select a child element :)
+doc("books.xml")/library/book[@id='B02']/title`}
+          />
+
+          <div className="note-box">
+            <strong>Important:</strong>
+            <ul style={{ marginBottom: 0 }}>
+              <li><code>doc()</code> raises an error if the file does not exist or is not well-formed XML.</li>
+              <li>It always returns exactly one document node (or an error).</li>
+              <li>Prefer forward slashes (<code>/</code>) even on Windows — BaseX accepts them.</li>
+              <li>Once you move the data into a database, switch to <code>db:get()</code> (see next section).</li>
+            </ul>
+          </div>
 
           <hr />
 
           <h2>2. Query from a database</h2>
+
           <p>
-            Use <code>db:get()</code> when the document is already stored in a BaseX database.
+            After a document has been stored in a BaseX database, use <code>db:get()</code>
+            instead of <code>doc()</code>. This is the modern and preferred way to read data
+            from a BaseX database.
           </p>
 
           <CodeBlock
             language="xquery"
-            code={`(: Get from database (specify database using db:get() if path is not known) :)
+            code={`(: Get all documents from the database "myDb" :)
+db:get("myDb")
+
+(: Get a specific document by path and then query it :)
+db:get("myDb", "library.xml")/library/book[@id='B02']/price
+
+(: Short form — if the path is unique you can often omit it :)
 db:get("myDb")/library/book[@id='B02']/price`}
           />
 
-          <h3>Wildcard namespace prefix</h3>
+          <h3>2.1 Wildcard namespace prefix (<code>*:</code>)</h3>
           <p>
-            Use the <code>*:</code> prefix when the namespace (or lack of one) is unknown or
-            you want to ignore it.
+            XML documents frequently use namespaces. When you do not know the exact namespace
+            (or you want to ignore it), use the wildcard prefix <code>*:</code>.
           </p>
 
           <CodeBlock
             language="xquery"
-            code={`(: Wildcard prefix (*:) for path bypass when node path is not known or unspecified :)
-db:get("myDb")/*:library/*:book[@id='B02']/*:price`}
-          />
+            code={`(: Ignore namespaces completely :)
+db:get("myDb")/*:library/*:book[@id='B02']/*:price
 
-          <h3>Deep search with <code>//</code></h3>
-          <p>
-            Use <code>//</code> to find a node anywhere in the document, regardless of the
-            intermediate path.
-          </p>
-
-          <CodeBlock
-            language="xquery"
-            code={`(: Deep search using // for path bypass when node path is not known or unspecified :)
+(: Deep search + ignore namespaces :)
 db:get("myDb")//*:book[@id='B02']/*:price`}
           />
+
+          <h3>2.2 Deep search with <code>//</code></h3>
+          <p>
+            The double slash <code>//</code> is the descendant-or-self axis. It finds a node
+            anywhere in the document, no matter how deeply nested it is.
+          </p>
+
+          <CodeBlock
+            language="xquery"
+            code={`(: Find a book no matter where it is located :)
+db:get("myDb")//book[@id='B02']/price
+
+(: Combined with namespace wildcard :)
+db:get("myDb")//*:book[@id='B02']/*:price`}
+          />
+
+          <div className="important-box">
+            <strong>When to use which function?</strong>
+            <ul style={{ marginBottom: 0 }}>
+              <li><code>doc("file.xml")</code> → file is still on disk</li>
+              <li><code>db:get("dbName")</code> → document is already stored in a BaseX database</li>
+              <li><code>collection("dbName")</code> → also works, but <code>db:get()</code> is clearer and preferred in modern BaseX code</li>
+            </ul>
+          </div>
 
           <hr />
 
           <h2>3. Add data to an XML database</h2>
+
           <p>
-            Use <code>db:add()</code> to insert a complete XML document into a database.
+            To insert a complete XML document into a BaseX database, use <code>db:add()</code>.
+            This is an <em>updating function</em> — the change is applied after the query finishes.
           </p>
+
+          <h3>3.1 Add an XML document constructed in the query</h3>
 
           <CodeBlock
             language="xquery"
-            code={`(: XML data query syntax for adding data in an XML database :)
+            code={`(: Add a complete library document to the database "myDb" :)
 db:add("myDb",
   <library>
     <book id="B01">
@@ -156,30 +213,87 @@ db:add("myDb",
 )`}
           />
 
-          <p>After adding the document you can query it normally:</p>
+          <h3>3.2 Add a file from disk</h3>
 
           <CodeBlock
             language="xquery"
-            code={`db:get("myDb")/library/book[@id='B02']/price`}
+            code={`(: Add an existing XML file into the database :)
+db:add("myDb", "C:/data/books.xml", "library.xml")
+
+(: Or with a relative path :)
+db:add("myDb", "data/books.xml", "library.xml")`}
           />
 
-          <hr />
+          <h3>3.3 Query the data after adding</h3>
 
-          <h2>4. Normal queries (document already stored)</h2>
           <p>
-            Once the document (e.g. <code>books.xml</code>) has been stored in the database as
-            <code>library.xml</code>, you can use ordinary path expressions.
+            Because <code>db:add()</code> is an updating function, you normally cannot query
+            the newly added data in the <em>same</em> query. Run a second query:
           </p>
 
           <CodeBlock
             language="xquery"
-            code={`/library/book[@id='B02']/price`}
+            code={`(: After the add has been committed, query the document :)
+db:get("myDb")/library/book[@id='B02']/price
+
+(: Or more safely with path :)
+db:get("myDb", "library.xml")/library/book[@id='B02']/price`}
           />
+
+          <div className="note-box">
+            <strong>Key points about <code>db:add()</code>:</strong>
+            <ul style={{ marginBottom: 0 }}>
+              <li>It does <strong>not</strong> overwrite an existing resource with the same path. Use <code>db:put()</code> if you need replacement.</li>
+              <li>The third argument is the path/name under which the document will be stored inside the database.</li>
+              <li>You can add multiple documents in one call by supplying sequences of inputs and paths.</li>
+              <li>Requires write permission on the database.</li>
+            </ul>
+          </div>
+
+          <hr />
+
+          <h2>4. Normal queries (document already stored)</h2>
+
+          <p>
+            Once a document is stored in the database (for example as <code>library.xml</code>),
+            you can query it with ordinary XPath / XQuery path expressions. There are two common styles:
+          </p>
+
+          <h3>4.1 Explicit database access (recommended)</h3>
 
           <CodeBlock
             language="xquery"
-            code={`//book[@id='B02']/price`}
+            code={`(: Always clear and portable :)
+db:get("myDb")/library/book[@id='B02']/price
+
+db:get("myDb", "library.xml")//book[price > 10]/title`}
           />
+
+          <h3>4.2 Context-based queries (when a database is opened)</h3>
+
+          <p>
+            If a database has been opened in the global context (for example with the
+            <code>OPEN</code> command or in the BaseX GUI), you can use path expressions
+            without <code>db:get()</code>:
+          </p>
+
+          <CodeBlock
+            language="xquery"
+            code={`(: Absolute path from the root of the opened database :)
+/library/book[@id='B02']/price
+
+(: Deep search anywhere in the opened database :)
+//book[@id='B02']/price
+
+(: Filter and project :)
+//book[price > 10]/title`}
+          />
+
+          <div className="important-box">
+            <strong>Best practice:</strong> Prefer the explicit form
+            <code>db:get("dbName")/...</code>. It works even when no database is currently
+            open and makes the query self-contained and easier to understand.
+          </div>
 
           <hr />
 
