@@ -136,28 +136,7 @@ console.log(limited);
 
           <CodeBlock
             language="javascript"
-            code={`const data = JSON.parse(`{
-  "bookstore": [
-    { "id": "B01", "title": "The Great Gatsby", "price": 10.99 },
-    { "id": "B02", "title": "To Kill a Mockingbird", "price": 12.99 }
-  ]
-}`);
-
-// Read
-console.log(data.bookstore[0].title);
-
-// Modify
-data.bookstore[0].price = 9.99;
-
-// Add a new book
-data.bookstore.push({
-  id: "B03",
-  title: "The Elements of Style",
-  price: 9.99
-});
-
-// Convert back to JSON
-const updatedJson = JSON.stringify(data, null, 2);`}
+            code={'const data = JSON.parse(`{\n  "bookstore": [\n    { "id": "B01", "title": "The Great Gatsby", "price": 10.99 },\n    { "id": "B02", "title": "To Kill a Mockingbird", "price": 12.99 }\n  ]\n}`);\n\n// Read\nconsole.log(data.bookstore[0].title);\n\n// Modify\ndata.bookstore[0].price = 9.99;\n\n// Add a new book\ndata.bookstore.push({\n  id: "B03",\n  title: "The Elements of Style",\n  price: 9.99\n});\n\n// Convert back to JSON\nconst updatedJson = JSON.stringify(data, null, 2);'}
           />
 
           <hr />
@@ -193,22 +172,7 @@ console.log(result);  // null`}
 
           <CodeBlock
             language="javascript"
-            code={`async function loadBooks() {
-  try {
-    const response = await fetch("https://api.example.com/books");
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const books = await response.json();  // automatically parses JSON
-    console.log(books);
-  } catch (error) {
-    console.error("Failed to load books:", error);
-  }
-}
-
-loadBooks();`}
+            code={'async function loadBooks() {\n  try {\n    const response = await fetch("https://api.example.com/books");\n\n    if (!response.ok) {\n      throw new Error(`HTTP error! status: ${response.status}`);\n    }\n\n    const books = await response.json();  // automatically parses JSON\n    console.log(books);\n  } catch (error) {\n    console.error("Failed to load books:", error);\n  }\n}\n\nloadBooks();'}
           />
 
           <p>
