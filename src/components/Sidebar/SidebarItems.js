@@ -19,7 +19,8 @@ export const sidebarItems = [
   {
     title: "Extra",
     children: [
-      { title: "XML Data Query Synatx", path: "/sessions/xml-data-query-syntax" },
+      { title: "XML Data Query Syntax (BaseX)", path: "/sessions/xml-data-query-syntax" },
+      { title: "XML Query — NetBeans / Standard XQuery", path: "/sessions/xml-query-netbeans" },
     ]
   },
   
