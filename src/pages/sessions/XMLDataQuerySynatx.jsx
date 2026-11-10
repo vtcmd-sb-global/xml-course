@@ -1,3 +1,10 @@
+import React from 'react';
+import Layout from '@theme/Layout';
+import CustomLayout from '@site/src/components/Layout/Layout';
+import CodeBlock from '@site/src/components/CodeBlock';
+
+export default function Session01() {
+  return (
 (: Verify the file contents manually :)
 doc("C:/Users/student/Documents/books.xml")/library/book[@id='B02']/price,
 
@@ -42,5 +49,7 @@ db:get("myDb")/library/book[@id='B02']/price
 
 (: normal queries when document data(i.e. books.xml) is stored in xml database in this case from books.xml to myDb as library.xml :)
 /library/book[@id='B02']/price
+);
+}
 
 //book[@id='B02']/price
