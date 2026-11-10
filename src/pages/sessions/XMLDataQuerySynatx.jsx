@@ -65,6 +65,8 @@ db:get("myDb")/library/book[@id='B02']/price
 
 (: normal queries when document data(i.e. books.xml) is stored in xml database in this case from books.xml to myDb as library.xml :)
 /library/book[@id='B02']/price
+           </CustomLayout>
+    </Layout>
 );
 }
 
