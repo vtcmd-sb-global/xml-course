@@ -108,6 +108,11 @@ const HomePage = () => {
                 Session 08 — CORS
               </Link>
             </li>
+            <li>
+              <Link to="/sessions/XMLDataQuerySyntax">
+                XML Data Query Synatx
+              </Link>
+            </li>
           </ul>
         </section>
       </main>
