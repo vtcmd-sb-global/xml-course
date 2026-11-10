@@ -14,6 +14,7 @@ export const sidebarItems = [
       { title: "Session 06 — Working with JSON", path: "/sessions/session-06" },
       { title: "Session 07 — Advanced JSON Features", path: "/sessions/session-07" },
       { title: "Session 08 — CORS", path: "/sessions/session-08" },
+      { title: "XML Data Query Synatx", path: "/sessions/XMLDataQuerySyntax" },
     ],
   },
 ];
