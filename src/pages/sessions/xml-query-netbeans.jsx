@@ -540,20 +540,7 @@ return $b/title`}
           <h3>Example 2 – Formatted report</h3>
           <CodeBlock
             language="xquery"
-            code={`xquery version "3.1";
-
-<html>
-  <body>
-    <h1>Science Books</h1>
-    <ul>
-    {
-      for $b in doc("books.xml")//book[@category='science']
-      order by $b/price descending
-      return <li>{string($b/title)} — ${string($b/price)}</li>
-    }
-    </ul>
-  </body>
-</html>`}
+            code={'xquery version "3.1";\n\n<html>\n  <body>\n    <h1>Science Books</h1>\n    <ul>\n    {\n      for $b in doc("books.xml")//book[@category=\'science\']\n      order by $b/price descending\n      return <li>{string($b/title)} — {string($b/price)}</li>\n    }\n    </ul>\n  </body>\n</html>'}
           />
 
           <h3>Example 3 – Statistics + list</h3>
