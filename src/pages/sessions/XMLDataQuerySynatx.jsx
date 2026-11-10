@@ -3,11 +3,11 @@ import Layout from '@theme/Layout';
 import CustomLayout from '@site/src/components/Layout/Layout';
 import CodeBlock from '@site/src/components/CodeBlock';
 
-export default function Session01() {
+export default function XMLDataQuerySyntax() {
   return (
-     <Layout
-      title="Session 01 — XML and XML Validations"
-      description="Define XML, its features, attributes, comments, trees, validations, and work with DTDs"
+    <Layout
+      title="XML Data Query Syntax"
+      description="XQuery / BaseX syntax for querying and adding data in XML databases"
     >
       <CustomLayout>
         <article className="session-content">
@@ -21,23 +21,81 @@ export default function Session01() {
               font-size: 0.9em;
             }
           `}</style>
-(: Verify the file contents manually :)
-doc("C:/Users/student/Documents/books.xml")/library/book[@id='B02']/price,
 
-(: get from document file use when file data not saved in database :)
-doc("path/to/library.xml")/library/book[@id='B02']/price,
+          <h1>XML Data Query Syntax</h1>
 
-(: get from database (specify database using db:get() if path not known) :)
-db:get("myDb")/library/book[@id='B02']/price,
+          <p>
+            This page covers common XQuery / BaseX patterns for reading data from files or
+            databases and for inserting XML documents into a database.
+          </p>
 
-(: wildcard prefix (*:\) for path bypas when node path is not not known or unspecified :)
-db:get("myDb")/*:library/*:book[@id='B02']/*:price,
+          <hr />
 
-(: deep search using // for path bypas when node path is not not known or unspecified :)
-db:get("myDb")//*:book[@id='B02']/*:price,
+          <h2>1. Query from a file on disk</h2>
+          <p>
+            Use <code>doc()</code> when the XML file is not yet stored in a database.
+          </p>
 
-(: xml data query syntax for adding data in xml database :)
-db:add("myDb", 
+          <CodeBlock
+            language="xquery"
+            code={`(: Verify the file contents manually :)
+doc("C:/Users/student/Documents/books.xml")/library/book[@id='B02']/price`}
+          />
+
+          <CodeBlock
+            language="xquery"
+            code={`(: Get from document file — use when file data is not saved in a database :)
+doc("path/to/library.xml")/library/book[@id='B02']/price`}
+          />
+
+          <hr />
+
+          <h2>2. Query from a database</h2>
+          <p>
+            Use <code>db:get()</code> when the document is already stored in a BaseX database.
+          </p>
+
+          <CodeBlock
+            language="xquery"
+            code={`(: Get from database (specify database using db:get() if path is not known) :)
+db:get("myDb")/library/book[@id='B02']/price`}
+          />
+
+          <h3>Wildcard namespace prefix</h3>
+          <p>
+            Use the <code>*:</code> prefix when the namespace (or lack of one) is unknown or
+            you want to ignore it.
+          </p>
+
+          <CodeBlock
+            language="xquery"
+            code={`(: Wildcard prefix (*:) for path bypass when node path is not known or unspecified :)
+db:get("myDb")/*:library/*:book[@id='B02']/*:price`}
+          />
+
+          <h3>Deep search with <code>//</code></h3>
+          <p>
+            Use <code>//</code> to find a node anywhere in the document, regardless of the
+            intermediate path.
+          </p>
+
+          <CodeBlock
+            language="xquery"
+            code={`(: Deep search using // for path bypass when node path is not known or unspecified :)
+db:get("myDb")//*:book[@id='B02']/*:price`}
+          />
+
+          <hr />
+
+          <h2>3. Add data to an XML database</h2>
+          <p>
+            Use <code>db:add()</code> to insert a complete XML document into a database.
+          </p>
+
+          <CodeBlock
+            language="xquery"
+            code={`(: XML data query syntax for adding data in an XML database :)
+db:add("myDb",
   <library>
     <book id="B01">
       <title>The Catcher in the Rye</title>
@@ -57,17 +115,48 @@ db:add("myDb",
       <genre>Fiction</genre>
       <price>10.99</price>
     </book>
-  </library>, 
+  </library>,
   "library.xml"
-),
+)`}
+          />
 
-db:get("myDb")/library/book[@id='B02']/price
+          <p>After adding the document you can query it normally:</p>
 
-(: normal queries when document data(i.e. books.xml) is stored in xml database in this case from books.xml to myDb as library.xml :)
-/library/book[@id='B02']/price
+          <CodeBlock
+            language="xquery"
+            code={`db:get("myDb")/library/book[@id='B02']/price`}
+          />
 
-          //book[@id='B02']/price
-           </CustomLayout>
+          <hr />
+
+          <h2>4. Normal queries (document already stored)</h2>
+          <p>
+            Once the document (e.g. <code>books.xml</code>) has been stored in the database as
+            <code>library.xml</code>, you can use ordinary path expressions.
+          </p>
+
+          <CodeBlock
+            language="xquery"
+            code={`/library/book[@id='B02']/price`}
+          />
+
+          <CodeBlock
+            language="xquery"
+            code={`//book[@id='B02']/price`}
+          />
+
+          <hr />
+
+          <h2>Summary</h2>
+          <ul>
+            <li><code>doc("path")</code> — read an XML file from disk</li>
+            <li><code>db:get("dbName")</code> — read a document already stored in a BaseX database</li>
+            <li><code>*:</code> — ignore namespaces</li>
+            <li><code>//</code> — deep (descendant-or-self) search</li>
+            <li><code>db:add("dbName", $xml, "docName.xml")</code> — insert a document into a database</li>
+          </ul>
+        </article>
+      </CustomLayout>
     </Layout>
-);
+  );
 }
