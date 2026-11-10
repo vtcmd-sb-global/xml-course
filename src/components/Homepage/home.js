@@ -109,7 +109,7 @@ const HomePage = () => {
               </Link>
             </li>
             <li>
-              <Link to="/sessions/XMLDataQuerySyntax">
+              <Link to="/sessions/xml-data-query-syntax">
                 XML Data Query Synatx
               </Link>
             </li>
