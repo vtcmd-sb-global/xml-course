@@ -355,7 +355,7 @@ db:add("myDb",
                 <td><code>db:get-pre()</code></td>
                 <td><code>db:get-pre($db as xs:string, $pre as xs:integer*) as node()*</code></td>
                 <td>
-                  Returns nodes by their internal PRE value (very fast access).r />
+                  Returns nodes by their internal PRE value (very fast access).<br />
                   PRE values change when nodes are inserted or deleted before them — use with care.
                 </td>
               </tr>
