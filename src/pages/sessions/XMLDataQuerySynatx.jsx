@@ -5,6 +5,22 @@ import CodeBlock from '@site/src/components/CodeBlock';
 
 export default function Session01() {
   return (
+     <Layout
+      title="Session 01 — XML and XML Validations"
+      description="Define XML, its features, attributes, comments, trees, validations, and work with DTDs"
+    >
+      <CustomLayout>
+        <article className="session-content">
+          <style>{`
+            article code:not(pre code) {
+              background-color: #f4f4f4;
+              color: #d10057;
+              padding: 2px 6px;
+              border-radius: 4px;
+              font-family: Consolas, Monaco, monospace;
+              font-size: 0.9em;
+            }
+          `}</style>
 (: Verify the file contents manually :)
 doc("C:/Users/student/Documents/books.xml")/library/book[@id='B02']/price,
 
