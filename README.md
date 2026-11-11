@@ -30,17 +30,3 @@ The course contains **8 sessions**. Each session is designed for approximately *
 | 06 | Working with JSON |
 | 07 | Advanced JSON Features |
 | 08 | CORS |
-
----
-
-## Student Expectations
-
-Students are expected to:
-
-1. Read the lesson material carefully.
-2. Type and execute the examples themselves.
-3. Complete the **Try It Yourself** exercises.
-4. Attempt the **Test Your Knowledge** questions.
-5. Practice outside the classroom.
-
----
