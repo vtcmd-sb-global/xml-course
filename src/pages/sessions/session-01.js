@@ -228,11 +228,11 @@ export default function Session01() {
             Certain characters have special meaning in XML and must be escaped when they appear as data:
           </p>
           <ul>
-            <li><code><</code> → <code>&lt;</code></li>
-            <li><code>></code> → <code>&gt;</code></li>
-            <li><code>&</code> → <code>&amp;</code></li>
-            <li><code>'</code> → <code>'</code> (useful inside single-quoted attributes)</li>
-            <li><code>"</code> → <code>"</code> (useful inside double-quoted attributes)</li>
+            <li><code>{'<'}</code> → <code>&lt;</code></li>
+            <li><code>{'>'}</code> → <code>&gt;</code></li>
+            <li><code>{'&'}</code> → <code>&amp;</code></li>
+            <li><code>{ "'" }</code> → <code>'</code> (useful inside single-quoted attributes)</li>
+            <li><code>{ '"' }</code> → <code>"</code> (useful inside double-quoted attributes)</li>
           </ul>
 
           <p>You can also define your own entities in a DTD (see section 7.5).</p>
@@ -276,7 +276,7 @@ export default function Session01() {
             <li>All tags are properly nested (no overlapping)</li>
             <li>Every start tag has a matching end tag (or is a self-closing empty element)</li>
             <li>Attribute values are quoted</li>
-            <li>Special characters (<code><</code>, <code>&</code>, etc.) are properly escaped</li>
+            <li>Special characters (<code>{'<'}</code>, <code>{'&'}</code>, etc.) are properly escaped</li>
             <li>Element and attribute names follow the naming rules</li>
             <li>Case is consistent (XML is case-sensitive)</li>
           </ul>
@@ -497,7 +497,7 @@ export default function Session01() {
             <li>Forgetting to close a tag or mismatching start/end tag names (case matters!)</li>
             <li>Using unquoted attribute values</li>
             <li>Putting two root elements in one document</li>
-            <li>Using <code>&</code> or <code><</code> without escaping them</li>
+            <li>Using <code>{'&'}</code> or <code>{'<'}</code> without escaping them</li>
             <li>Writing overlapping tags instead of proper nesting</li>
             <li>Declaring an element in the DTD but using a different name (or different case) in the document</li>
             <li>Forgetting cardinality indicators and then being surprised that multiple children are not allowed</li>
